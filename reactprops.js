@@ -225,36 +225,39 @@ const courses = [
       is_published: true,
     },
 ];
-function PostItem({
-  index,title,imgUrl,description
-}){
+
+
+function PostItem({course,onClick}){
   return (
     <div className="post-item">
-        <p>{index}</p>
-        <h1>{title}</h1>
-        <img src={imgUrl}></img>
-        <p>{description}</p>
+      <h1 onClick = {()=>onClick(course)} >{course.title}</h1>
+      <img src={course.image_url}></img>
+      <p>{course.description}</p>
+      <p>{course.students_count}</p>
     </div>
   )
 }
-function PostList(){
-  return courses.map(function(course){
-    return (
-      <PostItem
-        index = {course.id}
-        title = {course.title}
-        image = {course.image_url}
-        description = {course.description}
-      />
-    )
 
-  })
+
+function App() {
+  const handleonClick = (course) => {
+    console.log(course.title)
+  }
+
+  return ( 
+  <div id="wrapper">
+      {courses.map((course) =>(
+          <PostItem
+              key={course.id}
+              course={course}
+              onClick ={handleonClick}
+          />
+      ))}
+    </div>
+  )
 }
 
-const app = (
-  <React.Fragment>
-    <PostList/>
-  </React.Fragment>
-)
+ReactDOM.render(<App/>,document.getElementById('root'))
 
-ReactDom.render(app, document.getElementById('root'))
+
+

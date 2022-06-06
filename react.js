@@ -19,41 +19,30 @@ const courses = [
     }
 ]
 
-function PostItem({
-    index,
-    img,
-    title,
-    description,
-    published
-}){
+function PostItem({course,index}){
     
     return (
         <div className="post-list">
             <div className="post-item">
                 <h1>{index}</h1>
-                <img src={img} alt="" />
-                <h2 className="Post-title">{title}
+                <h2 className="Post-title">{course.title}
+                <img src={course.img} alt="" />
                 </h2>
-                <p className="Post-desc">{description}</p>
-                <p className="post-published">{published}</p>
+                <p className="Post-desc">{course.description}</p>
+                <p className="post-published">{course.published}</p>
             </div>
         </div>
     )
 }
-function PostList(){
-    return courses.map(function(course,index){
-        return <PostItem
-            index={index}
-            img = {course.img}
-            title = {course.title}
-            description = {course.description}
-            published = {course.published}
-        />
-    })
-}
+
 const app = (
     <React.Fragment>
-        <PostList/>
+        {courses.map((course,index) =>(
+            <PostItem
+                index = {index}
+                course={course}
+            />
+        ))}
     </React.Fragment>
 )
 ReactDOM.render(app,document.getElementById('root'))
